@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add User</title>
+</head>
+<body>
+Sdes dobavleybt user
+
+<a href="/">Go to user list</a>
+
+<br/><br/>
+
+<div th:if="${param.error}">
+    <p style="color: red;">Name should not be empty</p>
+</div>
+
+<form th:method="POST" th:action="@{/createUser}" th:object="${user}">
+    <label for="name">Name &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+    <input th:field="*{firstName}" type="text" id="name"/>
+
+    <br/><br/>
+
+    <label for="lastName">Last Name</label>
+    <input th:field="*{lastName}" type="text" id="lastName"/>
+
+    <br/><br/>
+
+    <label for="email">Email &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+    <input th:field="*{email}" type="text" id="email"/>
+
+    <br/><br/>
+
+    <input type="submit" value="Add User"/>
+</form>
+
+</body>
+</html>
