@@ -2,9 +2,11 @@ package com.example.pp_2_3_1_boot.controller;
 
 import com.example.pp_2_3_1_boot.model.User;
 import com.example.pp_2_3_1_boot.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -29,9 +31,9 @@ public class UserController {
     }
 
     @PostMapping("/createUser")
-    public String createUser(@ModelAttribute("user") User user) {
-        if (user.getFirstName().isEmpty()) {
-            return "redirect:/addUser?error";
+    public String createUser(@ModelAttribute("user") @Valid User user, BindingResult result) {
+        if (result.hasErrors()) {
+            return "addUser";
         }
 
         userService.save(user);
@@ -45,9 +47,9 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public String update (@ModelAttribute("user") User user, @PathVariable("id") long id) {
-        if (user.getFirstName().isEmpty()) {
-            return "redirect:/editUser/{id}?error";
+    public String update (@ModelAttribute("user") @Valid User user, BindingResult result, @PathVariable("id") long id) {
+        if (result.hasErrors()) {
+            return "editUser";
         }
 
         userService.update(id, user);
